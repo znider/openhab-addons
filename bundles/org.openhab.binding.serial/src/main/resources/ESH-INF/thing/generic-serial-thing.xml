@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="serial"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
+
+	<thing-type id="serial">
+		<label>Generic serial device</label>
+		<description>Settings defaults to 8/N/1 with baud rate 9600</description>
+
+		<channels>
+			<channel id="receive" typeId="receive" />
+			<channel id="send" typeId="send" />
+		</channels>
+
+		<config-description>
+			<parameter name="serialPort" type="text" required="true">
+				<label>Serial Port</label>
+				<description>Serial port to connect to</description>
+				<context>serial-port</context>
+			</parameter>
+
+            <parameter name="baudRate" type="integer">
+                <advanced>true</advanced>
+                <label>Baud Rate</label>
+                <description>Baud rate</description>
+                <default>9600</default>
+            </parameter>
+
+            <parameter name="dataBits" type="integer">
+                <advanced>true</advanced>
+                <label>Data Bits</label>
+                <description>Data bits</description>
+                <options>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                </options>
+                <default>8</default>
+            </parameter>
+            
+            <parameter name="stopBits" type="text">
+                <advanced>true</advanced>
+                <label>Stop Bits</label>
+                <description>Stop bits</description>
+                <options>
+                    <option value="1">1</option>
+                    <option value="1.5">1.5</option>
+                    <option value="2">2</option>
+                </options>
+                <default>1</default>
+            </parameter>
+            
+            <parameter name="parity" type="text">
+                <advanced>true</advanced>
+                <label>Parity</label>
+                <description>Parity</description>
+                <options>
+                    <option value="None">None</option>
+                    <option value="Odd">Odd</option>                
+                    <option value="Even">Even</option>
+                    <option value="Mark">Mark</option>
+                    <option value="Space">Space</option>
+                </options>
+                <default>None</default>
+            </parameter>
+            
+            <parameter name="restartTimer" type="integer" required="false">
+                <advanced>true</advanced>
+                <label>Restart Timer</label>
+                <description>Restart connection if no data is received within this time. Set "0" to disable</description>
+                <default>0</default>
+            </parameter>
+        </config-description>
+	</thing-type>
+
+	<channel-type id="receive">
+		<kind>trigger</kind>
+		<label>Received Data</label>
+		<description>Triggers when new data is received from serial port</description>
+		<event></event>
+	</channel-type>
+	
+	<channel-type id="send">
+        <item-type>String</item-type>
+        <label>Data To Send</label>
+        <description>Send this data to serial port</description>
+    </channel-type>
+
+</thing:thing-descriptions>
