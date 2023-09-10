@@ -119,7 +119,7 @@ public class ValloxExpiringCacheMap {
     public boolean isExpired(ChannelDescriptor key) {
         ExpiringCacheObject value = getCacheObject(key);
         if (value != null) {
-            return cache.get(key).isExpired();
+            return value.isExpired();
         }
         return true;
     }
